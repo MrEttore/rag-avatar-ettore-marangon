@@ -1,6 +1,7 @@
 "use client";
 
 import { useChat } from "@ai-sdk/react";
+import { LightBulbIcon } from "@heroicons/react/24/solid";
 import { DefaultChatTransport } from "ai";
 import { useState } from "react";
 import ReactMarkdown from "react-markdown";
@@ -8,19 +9,20 @@ import rehypeSanitize from "rehype-sanitize";
 import remarkGfm from "remark-gfm";
 
 import { ChatHeader } from "@/features/chat";
+import ChatInput from "@/features/chat/ChatInput";
 import PromptExamples from "@/features/chat/PromptExamples";
-
-// TODO: Use chat status to render loading state.
 
 export default function ChatPage() {
   const [input, setInput] = useState("");
-  const { /*status,*/ messages, sendMessage } = useChat({
+  const { status, messages, sendMessage } = useChat({
     transport: new DefaultChatTransport({
       api: "/api/chat",
     }),
   });
 
   const hasMessages = messages.length > 0;
+  const isThinking = status === "submitted" || status === "streaming";
+  // const isThinking = true;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -35,9 +37,13 @@ export default function ChatPage() {
         <ChatHeader />
 
         <main className="relative min-h-0 flex-1 overflow-y-auto">
-          {!hasMessages ? (
-            <PromptExamples onClick={setInput} />
-          ) : (
+          <div
+            aria-hidden="true"
+            className="pointer-events-none sticky top-0 z-10 h-8 bg-linear-to-b from-zinc-950 via-zinc-950/70 to-transparent"
+          />
+          {!hasMessages && <PromptExamples onClick={setInput} />}
+
+          {hasMessages && (
             <div className="flex flex-col gap-4 sm:gap-6">
               {messages.map((message) => (
                 <div
@@ -45,12 +51,27 @@ export default function ChatPage() {
                   className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}
                 >
                   <div
-                    className={`max-w-[88%] rounded-3xl px-4 py-3 text-sm leading-relaxed shadow-lg sm:max-w-[75%] sm:px-5 sm:py-4 sm:text-base ${
+                    className={`max-w-[88%] space-y-2 rounded-3xl px-4 py-3 text-sm leading-relaxed shadow-lg sm:max-w-[75%] sm:px-5 sm:py-4 sm:text-base ${
                       message.role === "user"
                         ? "bg-indigo-500 text-white shadow-indigo-500/15"
                         : "bg-white/10 text-zinc-100 shadow-black/15"
                     }`}
                   >
+                    {message.role === "assistant" && (
+                      <div className="flex items-center gap-2">
+                        <p className="text-lg font-semibold text-indigo-300">Ettore Marangon</p>
+
+                        {/* TODO: Build component rendering agent actions (e.g., thinking, calling tools, etc...) */}
+                        <span className="animate-pulse font-extralight italic">
+                          {isThinking ? (
+                            <span className="flex items-center gap-1 text-sm">
+                              <LightBulbIcon className="size-4 text-amber-200" />
+                              Thinking...
+                            </span>
+                          ) : null}
+                        </span>
+                      </div>
+                    )}
                     {message.parts.map((part, i) => {
                       switch (part.type) {
                         case "text":
@@ -78,22 +99,7 @@ export default function ChatPage() {
           )}
         </main>
 
-        <form className="mt-4 sm:mt-6" onSubmit={handleSubmit}>
-          <div className="flex items-center gap-2 rounded-3xl border border-white/10 bg-white/5 p-2 shadow-xl shadow-black/30 sm:gap-3 sm:p-3">
-            <input
-              className="flex-1 bg-transparent px-2 py-2 text-sm text-white placeholder:text-zinc-500 focus:outline-none sm:py-3 sm:text-base"
-              value={input}
-              placeholder="Say something..."
-              onChange={(e) => setInput(e.currentTarget.value)}
-            />
-            <button
-              type="submit"
-              className="rounded-2xl bg-indigo-500 px-4 py-2 text-sm font-semibold text-white transition hover:cursor-pointer hover:bg-indigo-400 sm:px-5 sm:py-3"
-            >
-              Send
-            </button>
-          </div>
-        </form>
+        <ChatInput input={input} onInput={setInput} onSubmit={handleSubmit} />
       </div>
     </div>
   );
