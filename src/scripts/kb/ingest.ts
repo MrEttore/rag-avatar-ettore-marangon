@@ -35,6 +35,7 @@ async function main() {
         })
         .returning();
 
+      // TODO: Different chunking strategies based on doc type.
       const chunks = await chunkDocsByTextStructure([doc]);
       totalChunks += chunks.length;
 

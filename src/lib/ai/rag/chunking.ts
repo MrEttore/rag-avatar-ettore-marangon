@@ -47,7 +47,7 @@ export const chunkByParagraphs = (input: string): string[] => {
 
 // Chunking strategy 4.
 // TODO: Experiment with different chunk sizes and overlaps.
-const splitter = new RecursiveCharacterTextSplitter({ chunkSize: 500, chunkOverlap: 120 });
+const splitter = new RecursiveCharacterTextSplitter({ chunkSize: 800, chunkOverlap: 150 });
 
 export const chunkByTextStructure = (input: string): Promise<string[]> => {
   const chunks = splitter.splitText(input);
