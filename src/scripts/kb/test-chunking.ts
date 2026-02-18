@@ -2,13 +2,7 @@ import fs from "node:fs/promises";
 
 import path from "path";
 
-import {
-  chunkByMarkdownH2Sections,
-  chunkByParagraphs,
-  chunkByPeriods,
-  chunkByTextStructure,
-  chunkDocsByTextStructure,
-} from "@/lib/ai/rag";
+import { chunkByTextStructure, chunkDocsByTextStructure } from "@/lib/ai/rag";
 
 // import { normalizeMarkdown, normalizeText } from "@/lib/utils";
 import { loadDocs } from "./load-docs";
