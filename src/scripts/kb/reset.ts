@@ -1,12 +1,12 @@
 import { createScriptDb } from "@/lib/db/client";
-import { resetKnowledgeBase } from "@/lib/kb/indexer";
+import { resourcesTable } from "@/lib/db/schema/resources";
 
 async function main() {
   const { db, close } = createScriptDb();
 
   console.log("=> Resetting knowledge base (deleting all resources + embeddings)...");
   try {
-    await resetKnowledgeBase(db);
+    await db.delete(resourcesTable);
     console.log("=> Done ✅");
   } finally {
     await close();

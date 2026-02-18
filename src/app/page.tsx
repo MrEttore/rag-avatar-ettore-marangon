@@ -20,6 +20,8 @@ export default function ChatPage() {
     }),
   });
 
+  console.log(messages);
+
   const hasMessages = messages.length > 0;
   const isThinking = status === "submitted" || status === "streaming";
   // const isThinking = true;

@@ -1,3 +1,6 @@
+import type { Document } from "@langchain/core/documents";
+import { RecursiveCharacterTextSplitter } from "@langchain/textsplitters";
+
 // Chunking strategy 1.
 export const chunkByPeriods = (input: string): string[] => {
   return input
@@ -40,4 +43,20 @@ export const chunkByParagraphs = (input: string): string[] => {
     .trim()
     .split(/\n{2,}/)
     .filter((i) => i !== "");
+};
+
+// Chunking strategy 4.
+// TODO: Experiment with different chunk sizes and overlaps.
+const splitter = new RecursiveCharacterTextSplitter({ chunkSize: 500, chunkOverlap: 120 });
+
+export const chunkByTextStructure = (input: string): Promise<string[]> => {
+  const chunks = splitter.splitText(input);
+
+  return chunks;
+};
+
+export const chunkDocsByTextStructure = (docs: Document[]): Promise<Document[]> => {
+  const chunks = splitter.splitDocuments(docs);
+
+  return chunks;
 };

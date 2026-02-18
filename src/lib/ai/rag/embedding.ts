@@ -1,37 +1,29 @@
+import type { Document } from "@langchain/core/documents";
 import { embed, embedMany } from "ai";
 import { cosineDistance, desc, gt, sql } from "drizzle-orm";
 
 import { openai } from "@/lib/ai/providers";
-import { chunkByMarkdownH2Sections } from "@/lib/ai/rag";
 import { db } from "@/lib/db/client";
 import { embeddingsTable } from "@/lib/db/schema/embeddings";
 
 export const generateEmbeddings = async (
-  value: string,
-): Promise<Array<{ embedding: number[]; content: string }>> => {
-  const chunks = chunkByMarkdownH2Sections(value);
-
-  return generateEmbeddingsFromChunks(chunks);
-};
-
-export const generateEmbeddingsFromChunks = async (
-  chunks: string[],
+  chunks: Document[],
 ): Promise<Array<{ embedding: number[]; content: string }>> => {
   if (chunks.length === 0) return [];
 
   const { embeddings } = await embedMany({
-    model: openai.embedding("text-embedding-ada-002"),
-    values: chunks,
+    model: openai.embedding("text-embedding-3-small"),
+    values: chunks.map((chunk) => chunk.pageContent),
   });
 
-  return embeddings.map((e, i) => ({ content: chunks[i], embedding: e }));
+  return embeddings.map((e, i) => ({ content: chunks[i].pageContent, embedding: e }));
 };
 
 export const generateEmbedding = async (value: string): Promise<number[]> => {
   const input = value.replace(/\s+/g, " ").trim();
 
   const { embedding } = await embed({
-    model: openai.embedding("text-embedding-ada-002"),
+    model: openai.embedding("text-embedding-3-small"),
     value: input,
   });
 
