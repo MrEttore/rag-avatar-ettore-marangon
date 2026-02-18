@@ -1,6 +1,6 @@
 export default function ChatHeader() {
   return (
-    <header className="mb-6 flex flex-col gap-2 sm:mb-8">
+    <header className="mb-2 flex flex-col gap-2 sm:mb-4">
       <p className="text-[0.65rem] font-semibold tracking-[0.3em] text-indigo-300 uppercase sm:text-xs">
         Chat Studio
       </p>
