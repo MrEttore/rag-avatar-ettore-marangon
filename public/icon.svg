@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    :root{
+      --bg:#0b0f17;
+      --fg:#f8fafc;
+    }
+    @media (prefers-color-scheme: light){
+      :root{
+        --bg:#eaedf5;
+        --fg:#0b0f17;
+      }
+    }
+  </style>
+
+  <rect width="512" height="512" rx="120" fill="var(--bg)"/>
+
+  <text
+    x="50%"
+    y="54%"
+    text-anchor="middle"
+    dominant-baseline="middle"
+    font-family="Trebuchet MS, ui-sans-serif, system-ui, -apple-system, Segoe UI, Arial, sans-serif"
+    font-size="224"
+    font-weight="300"
+    letter-spacing="-16"
+    fill="var(--fg)"
+  >EM</text>
+</svg>

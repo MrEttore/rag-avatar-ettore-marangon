@@ -1,15 +1,10 @@
 import "@/styles/globals.css";
 
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Rubik } from "next/font/google";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const rubik = Rubik({
+  variable: "--font-rubik",
   subsets: ["latin"],
 });
 
@@ -21,18 +16,14 @@ export const metadata: Metadata = {
   description:
     "Discover Ettore Marangon, a professional with a rich background, diverse skills, and extensive experience.",
   icons: {
-    icon: "/icon.png",
+    icon: "/icon.svg",
   },
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>{children}</body>
+    <html lang="en" className={rubik.variable}>
+      <body className="antialiased">{children}</body>
     </html>
   );
 }

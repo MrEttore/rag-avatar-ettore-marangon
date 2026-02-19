@@ -1,2 +1,7 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
+
+html,
+body {
+  font-family: var(--font-rubik), sans-serif;
+}
