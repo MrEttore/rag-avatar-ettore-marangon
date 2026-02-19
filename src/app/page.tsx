@@ -76,7 +76,7 @@ export default function ChatPage() {
               />
             </>
           )}
-          {/* TODO: Build carousel component for prompt examples. */}
+
           {!hasMessages && <PromptExamples onClick={setInput} />}
 
           {hasMessages && (
