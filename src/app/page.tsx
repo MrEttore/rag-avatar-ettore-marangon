@@ -3,7 +3,7 @@
 import { useChat } from "@ai-sdk/react";
 import { LightBulbIcon, WrenchIcon } from "@heroicons/react/24/solid";
 import { DefaultChatTransport } from "ai";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import rehypeSanitize from "rehype-sanitize";
 import remarkGfm from "remark-gfm";
@@ -15,6 +15,7 @@ import PromptExamples from "@/features/chat/PromptExamples";
 export default function ChatPage() {
   const [input, setInput] = useState("");
   const [currentToolCall, setCurrentToolCall] = useState<string | null>(null);
+  const chatScrollRef = useRef<HTMLElement | null>(null);
 
   const { status, messages, sendMessage } = useChat({
     transport: new DefaultChatTransport({
@@ -34,6 +35,22 @@ export default function ChatPage() {
   const isThinking = status === "submitted" || status === "streaming";
   const isCallingTool = currentToolCall !== null;
 
+  useEffect(() => {
+    if (!hasMessages) return;
+
+    const frame = requestAnimationFrame(() => {
+      const container = chatScrollRef.current;
+      if (!container) return;
+
+      container.scrollTo({
+        top: container.scrollHeight,
+        behavior: status === "streaming" ? "auto" : "smooth",
+      });
+    });
+
+    return () => cancelAnimationFrame(frame);
+  }, [messages, status, hasMessages]);
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!input.trim()) return;
@@ -47,7 +64,7 @@ export default function ChatPage() {
         <ChatHeader />
 
         {/* TODO: Build component rendering agent actions (e.g., thinking, calling tools, etc...) */}
-        <main className="relative min-h-0 flex-1 overflow-y-auto pr-1">
+        <main ref={chatScrollRef} className="relative min-h-0 flex-1 overflow-y-auto pr-1">
           {hasMessages && (
             <>
               {/* AGENT STATUS */}
