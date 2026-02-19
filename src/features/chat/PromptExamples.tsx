@@ -59,12 +59,16 @@ export default function PromptExamples({ onClick }: Props) {
 
   return (
     <div className="relative mx-1 my-2 sm:my-3">
+      <p className="mb-2 px-12 text-center text-xs text-zinc-400 sm:mb-3 sm:text-sm">
+        Pick a starter prompt to prefill the chat, then send it or edit it first.
+      </p>
+
       <button
         type="button"
         aria-label="Show previous prompt"
         onClick={() => scrollByCard(-1)}
         disabled={!canScrollPrev}
-        className="absolute top-1/2 left-0 z-10 -translate-y-1/2 rounded-full border border-white/10 bg-zinc-900/90 p-2 text-zinc-100 backdrop-blur-sm transition enabled:hover:cursor-pointer enabled:hover:border-indigo-400/40 enabled:hover:bg-indigo-500/20 disabled:cursor-not-allowed disabled:opacity-30"
+        className="absolute top-[60%] left-0 z-10 -translate-y-1/2 rounded-full border border-white/10 bg-zinc-900/90 p-2 text-zinc-100 backdrop-blur-sm transition enabled:hover:cursor-pointer enabled:hover:border-indigo-400/40 enabled:hover:bg-indigo-500/20 disabled:cursor-not-allowed disabled:opacity-30"
       >
         <ChevronLeftIcon className="size-4 sm:size-5" />
       </button>
@@ -91,7 +95,7 @@ export default function PromptExamples({ onClick }: Props) {
         aria-label="Show next prompt"
         onClick={() => scrollByCard(1)}
         disabled={!canScrollNext}
-        className="absolute top-1/2 right-0 z-10 -translate-y-1/2 rounded-full border border-white/10 bg-zinc-900/90 p-2 text-zinc-100 backdrop-blur-sm transition enabled:hover:cursor-pointer enabled:hover:border-indigo-400/40 enabled:hover:bg-indigo-500/20 disabled:cursor-not-allowed disabled:opacity-30"
+        className="absolute top-[60%] right-0 z-10 -translate-y-1/2 rounded-full border border-white/10 bg-zinc-900/90 p-2 text-zinc-100 backdrop-blur-sm transition enabled:hover:cursor-pointer enabled:hover:border-indigo-400/40 enabled:hover:bg-indigo-500/20 disabled:cursor-not-allowed disabled:opacity-30"
       >
         <ChevronRightIcon className="size-4 sm:size-5" />
       </button>
