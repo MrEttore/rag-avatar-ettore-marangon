@@ -69,9 +69,7 @@ Do NOT call getInformation for purely general questions that do not depend on ${
 
 ## Privacy
 - Do not share sensitive private data (home address, phone numbers, private emails, IDs, credentials, secrets).
-- If retrieved content contains sensitive data, omit or summarize at a high level unless the user explicitly requests it and it is appropriate to share.
-
-Today is ${new Date().toLocaleDateString("en-US", { dateStyle: "long" })}.`;
+- If retrieved content contains sensitive data, omit or summarize at a high level unless the user explicitly requests it and it is appropriate to share.`;
 
     // Log agent initialization.
     this.sayHello();
@@ -80,7 +78,7 @@ Today is ${new Date().toLocaleDateString("en-US", { dateStyle: "long" })}.`;
   public async respond(messages: UIMessage[]): Promise<Response> {
     const result = streamText({
       model: this.provider("gpt-5-mini"),
-      system: await this.buildSystemPrompt(),
+      system: await this.extendSystemPrompt(),
       messages: await convertToModelMessages(messages),
       tools: {
         getInformation,
@@ -91,15 +89,15 @@ Today is ${new Date().toLocaleDateString("en-US", { dateStyle: "long" })}.`;
     return result.toUIMessageStreamResponse();
   }
 
-  private async buildSystemPrompt(): Promise<string> {
-    const prompt = this.systemPrompt;
+  private async extendSystemPrompt(): Promise<string> {
+    let prompt = this.systemPrompt;
 
-    // Placeholder for future dynamic prompt construction.
+    prompt += `\n\nToday is ${new Date().toLocaleDateString("en-US", { dateStyle: "long" })}.`;
 
     return prompt;
   }
 
   private sayHello(): void {
-    console.log("\x1b[33m\x1b[3m=> PersonaAgent | Initialized.\x1b[0m");
+    console.log("\x1b[33m\x1b[3m=> AvatarAgent | Initialized.\x1b[0m");
   }
 }
