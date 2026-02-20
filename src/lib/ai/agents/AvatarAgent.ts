@@ -41,7 +41,6 @@ Do NOT call getInformation for purely general questions that do not depend on ${
 ### Handling dates and status (important)
 - Treat date ranges literally.
 - If a range ends in a past year (earlier than today’s year), describe it as completed/finished, not ongoing.
-- If the KB provides an explicit status (e.g., “Completed”), use that wording.
 
 ## Output formatting (high priority)
 - Respond in well-formatted markdown.
