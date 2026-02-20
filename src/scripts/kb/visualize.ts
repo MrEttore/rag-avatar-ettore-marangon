@@ -19,7 +19,7 @@ const CONFIG = {
   plotlyCdn: "https://cdn.plot.ly/plotly-2.27.0.min.js",
 };
 
-type DocType = "professional" | "personal" | "education" | "unknown";
+type DocType = "professional" | "personal" | "education" | "projects" | "unknown";
 
 function clamp(n: number, lo: number, hi: number) {
   return Math.max(lo, Math.min(hi, n));
@@ -30,7 +30,13 @@ function inferDocTypeFromSource(source: string): DocType {
   const kbIdx = parts.indexOf("knowledge-base");
   const maybe = (kbIdx >= 0 ? parts[kbIdx + 1] : parts[0]) ?? "unknown";
 
-  if (maybe === "professional" || maybe === "personal" || maybe === "education") return maybe;
+  if (
+    maybe === "professional" ||
+    maybe === "personal" ||
+    maybe === "education" ||
+    maybe === "projects"
+  )
+    return maybe;
   return "unknown";
 }
 
@@ -39,6 +45,7 @@ function colorForDocType(docType: DocType): string {
     professional: "red",
     personal: "blue",
     education: "orange",
+    projects: "green",
     unknown: "gray",
   };
   return palette[docType];
