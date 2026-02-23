@@ -17,7 +17,7 @@ export default function ChatInput({ input, onInput, onSubmit }: Props) {
         />
         <button
           type="submit"
-          className="min-h-11 rounded-2xl bg-indigo-500 px-4 py-2.5 text-sm font-semibold text-white transition hover:cursor-pointer hover:bg-indigo-400 sm:px-5 sm:py-3"
+          className="min-h-11 rounded-2xl bg-indigo-500 px-4 py-2.5 text-sm font-semibold text-white transition-colors duration-300 hover:cursor-pointer hover:bg-indigo-400 sm:px-5 sm:py-3"
         >
           Send
         </button>
