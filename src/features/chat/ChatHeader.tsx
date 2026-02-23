@@ -1,3 +1,4 @@
+import { ChevronRightIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
 
 import { EXPLORER_CONFIG } from "@/config/embeddings";
@@ -18,9 +19,10 @@ export default function ChatHeader() {
 
         <Link
           href={`/embedding-explorer?dims=${dims}&limit=${limit}`}
-          className="inline-flex shrink-0 items-center justify-center self-end rounded-md bg-indigo-500/40 px-2.5 py-1.5 text-xs font-medium whitespace-nowrap text-zinc-200 transition-colors duration-300 hover:bg-indigo-500/60 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-zinc-950 focus:outline-none sm:px-3 sm:py-2 sm:text-sm"
+          className="inline-flex shrink-0 items-center justify-center gap-0.5 self-end rounded-md bg-indigo-500/40 px-2.5 py-1.5 text-xs font-medium whitespace-nowrap text-zinc-200 transition-colors duration-300 hover:bg-indigo-500/60 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-zinc-950 focus:outline-none sm:gap-1 sm:px-3 sm:py-2 sm:text-sm"
         >
-          Visualize knowledge base
+          Visualize embeddings
+          <ChevronRightIcon className="size-4 text-zinc-200 sm:size-5" />
         </Link>
       </div>
     </header>
