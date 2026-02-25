@@ -5,9 +5,7 @@ import { LightBulbIcon, WrenchIcon } from "@heroicons/react/24/solid";
 import { DefaultChatTransport } from "ai";
 import { useEffect, useRef, useState } from "react";
 
-import { ChatHeader, ChatMessages } from "@/features/chat";
-import ChatInput from "@/features/chat/ChatInput";
-import PromptExamples from "@/features/chat/PromptExamples";
+import { ChatHeader, ChatInput, ChatMessages, PromptExamples } from "@/features/chat/components";
 
 export default function ChatPage() {
   const [input, setInput] = useState("");
