@@ -12,7 +12,7 @@ export default function ChatHeader() {
       <div className="flex items-start justify-between gap-3 sm:items-end sm:gap-4">
         <div className="min-w-0 flex-1 space-y-2">
           <p className="text-[0.65rem] font-semibold tracking-[0.3em] text-indigo-300 uppercase sm:text-xs">
-            Chat Studio
+            Ettore Marangon&apos;s RAG Avatar
           </p>
           <h1 className="text-2xl font-semibold text-white sm:text-3xl md:text-4xl">Talk to me</h1>
         </div>
