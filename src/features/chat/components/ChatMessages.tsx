@@ -1,4 +1,5 @@
 import { UIDataTypes, UIMessage, UITools } from "ai";
+import type { ComponentPropsWithoutRef } from "react";
 import ReactMarkdown from "react-markdown";
 import rehypeSanitize from "rehype-sanitize";
 import remarkGfm from "remark-gfm";
@@ -7,6 +8,14 @@ import { hasRenderableText } from "@/features/chat/utils";
 
 type Props = {
   messages: UIMessage<unknown, UIDataTypes, UITools>[];
+};
+
+const markdownComponents = {
+  a: ({ href, children, ...props }: ComponentPropsWithoutRef<"a">) => (
+    <a {...props} href={href} target="_blank" rel="noopener noreferrer">
+      {children}
+    </a>
+  ),
 };
 
 export default function ChatMessages({ messages }: Props) {
@@ -28,7 +37,11 @@ export default function ChatMessages({ messages }: Props) {
                     key={`${message.id}-${i}`}
                     className="prose prose-invert max-w-none text-sm sm:text-base"
                   >
-                    <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeSanitize]}>
+                    <ReactMarkdown
+                      remarkPlugins={[remarkGfm]}
+                      rehypePlugins={[rehypeSanitize]}
+                      components={markdownComponents}
+                    >
                       {part.text}
                     </ReactMarkdown>
                   </div>
